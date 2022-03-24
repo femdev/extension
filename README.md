@@ -1,4 +1,4 @@
-# extension
+# Sample Functionize Extension
 
 npm install
 
