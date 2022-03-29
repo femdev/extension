@@ -1,5 +1,7 @@
 // REMOVE FOR INTERNAL ETENSION
 const express = require('express')
+const bodyParser = require('body-parser');
+
 const app = express()
 const port = 8888
 
@@ -8,6 +10,7 @@ app.use(express.json({limit:'100mb'}))
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
+app.use(bodyParser.urlencoded({ extended: true }));
 // END REMOVE
 
 let sampleRequestBodyForInput = 
@@ -43,25 +46,28 @@ let sampleOutput = {
 };
 
 // EXTERNAL EXAMPLE
-// EXTENSIONS ONLY SUPPORT POSTS
+// EXTENSIONS ONLY SUPPORT POSTS******
 app.post('/', (req, res) => {
-    console.log("POST" + req)
-    
+    console.log("POST")
+    console.log(req.body)
+
     // YOUR CODE HERE
     sampleOutput.updates.action.attributes.value = sampleRequestBodyForInput.step.action.value.toUpperCase()
     
     // END YOUR CODE
-  
     res.status(200).send(sampleOutput)
 })
 
 // GETS CAN BE NICE FOR TESTING IF YOU DON'T NEED INPUTS 
 app.get('/', (req, res) => {
     console.log("GET")
+    console.log(req.query)
+
     res.status(200).send(sampleOutput)
 })
 
-// INTERNAL EXAMPLE TO CHANGE TEXT TO LOWER CASE FROM AN INPUT FIELD THAT ALREADY HAS A VALUE
+
+// INTERNAL EXTENSIONS EXAMPLE TO CHANGE TEXT TO LOWER CASE FROM AN INPUT FIELD THAT ALREADY HAS A VALUE
 // exports.helloWorld = (req, res) => {
 //   let input = req.body.step.action.value || 'Ooops, forgot to pass action.value to the extension';
 //   let result = {
